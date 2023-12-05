@@ -45,9 +45,17 @@
               "target": "Package",
               "version": "[2.0.90, )"
             },
+            "Elasticsearch.Net": {
+              "target": "Package",
+              "version": "[7.17.5, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[2.1.2, )"
+            },
+            "NEST": {
+              "target": "Package",
+              "version": "[7.17.5, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
