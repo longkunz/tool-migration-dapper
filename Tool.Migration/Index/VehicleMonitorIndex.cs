@@ -19,6 +19,7 @@ namespace Tool.VIP.Migrator.Index
         public int? Id { get; set; }
         public int? DeviceType { get; set; }
         public string DeviceName { get; set; }
+        public string Imei { get; set; }
         public bool? IsLocked { get; set; }
     }
 }

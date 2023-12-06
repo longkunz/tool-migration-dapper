@@ -9,6 +9,7 @@
         public int? DeviceId { get; set; }
         public string DeviceName { get; set; }
         public int DeviceTypeId { get; set; }
+        public string Imei { get; set; }
         public bool? IsLocked { get; set; }
         public bool? Inactive { get; set; }
     }

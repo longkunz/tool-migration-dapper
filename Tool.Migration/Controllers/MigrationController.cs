@@ -102,7 +102,7 @@ namespace DapperASPNetCore.Controllers
                             DeviceType = vg.DeviceTypeId,
                             Id = vg.DeviceId,
                             IsLocked = vg.IsLocked,
-
+                            Imei = vg.Imei
                         })
                     };
                     await Console.Out.WriteLineAsync($"Indexing vehicle id: {vehicleMonitorIndex.Id} ");
@@ -111,6 +111,7 @@ namespace DapperASPNetCore.Controllers
 
                     await Console.Out.WriteLineAsync($"Index vehicle id: {vehicleMonitorIndex.Id} success");
                 }
+                await Task.WhenAll( tasks );
                 return Ok(true);
             }
             catch (Exception ex)
