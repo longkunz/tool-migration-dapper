@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Tool.VIP.Migrator.Extensions;
 
 namespace DapperASPNetCore
 {
@@ -22,7 +23,7 @@ namespace DapperASPNetCore
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddSingleton<DapperContext>();
-			services.AddScoped<IUserSettingRepository, UsetSettingRepository>();
+			services.AddScoped<IMasterDBRepository, MasterDBRepository>();
 			services.AddControllers();
             // Register the Swagger generator
             services.AddSwaggerGen(c =>
@@ -34,6 +35,7 @@ namespace DapperASPNetCore
                     Description = "Tool Migration VMSupport",
                 });
             });
+			services.AddElasticsearch(Configuration);
         }
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

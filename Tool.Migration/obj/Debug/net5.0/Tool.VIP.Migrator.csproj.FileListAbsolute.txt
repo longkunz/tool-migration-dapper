@@ -104,3 +104,5 @@ C:\Users\longhv\Downloads\dapper-aspnetcore-webapi-main\dapper-aspnetcore-webapi
 C:\Users\longhv\Downloads\dapper-aspnetcore-webapi-main\dapper-aspnetcore-webapi-main\DapperASPNetCore\Tool.Migration\obj\Debug\net5.0\Tool.VIP.Migrator.pdb
 C:\Users\longhv\Downloads\dapper-aspnetcore-webapi-main\dapper-aspnetcore-webapi-main\DapperASPNetCore\Tool.Migration\obj\Debug\net5.0\Tool.VIP.Migrator.genruntimeconfig.cache
 C:\Users\longhv\Downloads\dapper-aspnetcore-webapi-main\dapper-aspnetcore-webapi-main\DapperASPNetCore\Tool.Migration\obj\Debug\net5.0\ref\Tool.VIP.Migrator.dll
+C:\Users\longhv\Downloads\dapper-aspnetcore-webapi-main\dapper-aspnetcore-webapi-main\DapperASPNetCore\Tool.Migration\bin\Debug\net5.0\Elasticsearch.Net.dll
+C:\Users\longhv\Downloads\dapper-aspnetcore-webapi-main\dapper-aspnetcore-webapi-main\DapperASPNetCore\Tool.Migration\bin\Debug\net5.0\Nest.dll
