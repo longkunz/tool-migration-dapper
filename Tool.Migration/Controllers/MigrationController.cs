@@ -40,14 +40,18 @@ namespace DapperASPNetCore.Controllers
                     var userIndex = new UserSettingIndex
                     {
                         Id = user.Id,
-                        Inactive = true,
+                        Inactive = user.Inactive,
                         UserId = user.Id,
                         Username = user.Username,
+                        CompanyId = user.CompanyId,
+                        Email = user.Email,
+                        RoleIdsJson = user.RoleIdsJson,
                         Vehicles = user.Vehicles,
                     };
-                    await IndexDocumentAsync(userIndex);
-                    Console.WriteLine($"Indexed user id: {user.Id}");
+                    IndexDocumentAsync(userIndex);
+                    Console.Out.WriteLineAsync($"Indexed user id: {user.Id}");
                 }));
+
                 return Ok(true);
             }
             catch (Exception ex)
@@ -61,10 +65,6 @@ namespace DapperASPNetCore.Controllers
         {
             try
             {
-                if (document is null)
-                {
-                    throw new Exception("Document NULL");
-                }
                 var response = await _elasticClient.IndexDocumentAsync<UserSettingIndex>(document);
                 return response.IsValid;
             }
@@ -93,9 +93,11 @@ namespace DapperASPNetCore.Controllers
                     {
                         ActualPlate = vehicleGroup.FirstOrDefault().ActualPlate,
                         CompanyName = vehicleGroup.FirstOrDefault().Company,
+                        CompanyId = vehicleGroup.FirstOrDefault().CompanyId,
                         Id = vehicleGroup.FirstOrDefault().VehicleId,
                         Inactive = vehicleGroup.FirstOrDefault().Inactive,
                         Plate = vehicleGroup.FirstOrDefault().Plate,
+                        Status = 0,
                         Devices = vehicleGroup.Select(vg => new VehicleDeviceDto
                         {
                             DeviceName = vg.DeviceName,
@@ -111,7 +113,7 @@ namespace DapperASPNetCore.Controllers
 
                     await Console.Out.WriteLineAsync($"Index vehicle id: {vehicleMonitorIndex.Id} success");
                 }
-                await Task.WhenAll( tasks );
+                await Task.WhenAll(tasks);
                 return Ok(true);
             }
             catch (Exception ex)

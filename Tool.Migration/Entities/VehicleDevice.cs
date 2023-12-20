@@ -3,6 +3,7 @@
     public class VehicleDevice
     {
         public string Company { get; set; }
+        public int? CompanyId { get; set; }
         public int VehicleId { get; set; }
         public string Plate { get; set; }
         public string ActualPlate { get; set; }

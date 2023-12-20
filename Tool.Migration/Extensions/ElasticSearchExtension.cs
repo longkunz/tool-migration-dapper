@@ -60,6 +60,7 @@ namespace Tool.VIP.Migrator.Extensions
                                   .Properties(p => p
                                       .Keyword(k => k.Name(n => n.Id))
                                       .Text(t => t.Name(n => n.Username).Fields(f => f.Keyword(k => k.Name("username"))))
+                                      .Text(t => t.Name(n => n.CompanyId).Fields(f => f.Keyword(k => k.Name("companyId"))))
                                   )
                               ));
             }

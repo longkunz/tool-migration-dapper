@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8cih6v0z6rjvKXlK3Ow7UhUqlef9EnWOJKdCJ7cDPii5+V269KEZjPz1lcO1DBSni8qGz1FqS/1SG90TyIu6BA==",
+  "dgSpecHash": "IOBLSHv78SXsaY+2JPrJ76DFmXOdMeRgJ8nI48tjwKXhcY/+de94s33oLKUUgyTerDhSmV6aI9sObPmXM4/Kww==",
   "success": true,
   "projectFilePath": "C:\\Users\\longhv\\Downloads\\dapper-aspnetcore-webapi-main\\dapper-aspnetcore-webapi-main\\DapperASPNetCore\\Tool.Migration\\Tool.VIP.Migrator.csproj",
   "expectedPackageFiles": [

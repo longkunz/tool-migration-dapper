@@ -22,7 +22,7 @@ namespace DapperASPNetCore.Repository
         {
             try
             {
-                var query = "SELECT us.Id,us.Vehicles,u.Username,us.Inactive FROM dbo.tbl_UserSetting us (NOLOCK) JOIN tbl_User u (NOLOCK) ON us.Id = u.Id WHERE u.Inactive = 0 AND us.Inactive = 0;";
+                var query = "SELECT us.Id, us.Vehicles, u.Username, u.CompanyId, u.Email, u.RoleIdsJson, us.Inactive FROM dbo.tbl_UserSetting us (NOLOCK) JOIN dbo.tbl_User u (NOLOCK) ON us.Id = u.Id WHERE u.Inactive = 0 AND us.Inactive = 0;";
 
                 using var connection = _context.CreateConnection();
                 connection.Open();
