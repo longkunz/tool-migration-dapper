@@ -4,7 +4,7 @@
     {
         public string Company { get; set; }
         public int? CompanyId { get; set; }
-        public int VehicleId { get; set; }
+        public int Id { get; set; }
         public string Plate { get; set; }
         public string ActualPlate { get; set; }
         public int? DeviceId { get; set; }

@@ -41,7 +41,49 @@ namespace DapperASPNetCore.Repository
         {
             try
             {
-                var query = "SELECT * FROM View_VehicleMonitorElastic";
+                //var query = "SELECT * FROM View_VehicleDeviceES";
+                var query = @"SELECT d.Id AS DeviceId,
+                                   d.DeviceTypeId,
+                                   dt.Name as DeviceName,
+                                   v.Id,
+                                   v.Plate,
+                                   v.ActualPlate,
+                                   d.CompanyId,
+                                   d.Imei,
+                                   ISNULL(d.IsLocked, 0) IsLocked,
+                                   com.Name AS Company,
+		                           v.Inactive
+                            FROM dbo.tbl_Device d
+                                INNER JOIN dbo.tbl_DeviceType dt
+                                    ON d.DeviceTypeId = dt.Id
+                                INNER JOIN dbo.tbl_Vehicle AS v
+                                    ON v.DeviceId = d.Id
+                                LEFT JOIN dbo.tbl_Company com
+                                    ON com.Id = d.CompanyId
+                            WHERE d.Inactive = 0
+                            UNION
+                            SELECT d.Id AS DeviceId,
+                                   d.DeviceTypeId,
+                                   dt.Name as DeviceName,
+                                   v.Id 'VehicleId',
+                                   v.Plate,
+                                   v.ActualPlate,
+                                   d.CompanyId,
+                                   d.Imei,
+                                   ISNULL(d.IsLocked, 0) IsLocked,
+                                   com.Name AS Company,
+		                           v.Inactive
+                            FROM dbo.tbl_Device d
+                                INNER JOIN dbo.tbl_DeviceType dt
+                                    ON d.DeviceTypeId = dt.Id
+                                INNER JOIN dbo.tbl_VehicleDevice vd
+                                    ON vd.DeviceId = d.Id
+                                INNER JOIN dbo.tbl_Vehicle v
+                                    ON v.Id = vd.VehicleId
+                                LEFT JOIN dbo.tbl_Company com
+                                    ON com.Id = d.CompanyId
+                            WHERE d.Inactive = 0
+                                  AND vd.IsActive = 1";
 
                 using var connection = _context.CreateConnection();
                 connection.Open();

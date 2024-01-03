@@ -85,7 +85,9 @@ namespace DapperASPNetCore.Controllers
                 var vehicleDevices = await _masterDbRepo.GetVehicleDevices();
                 Console.WriteLine($"Current total vehicles: {vehicleDevices.Count()}");
 
-                var vehicleGroups = vehicleDevices.GroupBy(v => v.VehicleId);
+                var temp = vehicleDevices.Where(v => v.Id == 24885);
+
+                var vehicleGroups = vehicleDevices.GroupBy(v => v.Id);
                 var tasks = new List<Task>();
                 foreach (var vehicleGroup in vehicleGroups)
                 {
@@ -94,7 +96,7 @@ namespace DapperASPNetCore.Controllers
                         ActualPlate = vehicleGroup.FirstOrDefault().ActualPlate,
                         CompanyName = vehicleGroup.FirstOrDefault().Company,
                         CompanyId = vehicleGroup.FirstOrDefault().CompanyId,
-                        Id = vehicleGroup.FirstOrDefault().VehicleId,
+                        Id = vehicleGroup.FirstOrDefault().Id,
                         Inactive = vehicleGroup.FirstOrDefault().Inactive,
                         Plate = vehicleGroup.FirstOrDefault().Plate,
                         Status = 0,
@@ -107,13 +109,11 @@ namespace DapperASPNetCore.Controllers
                             Imei = vg.Imei
                         })
                     };
-                    await Console.Out.WriteLineAsync($"Indexing vehicle id: {vehicleMonitorIndex.Id} ");
-
                     tasks.Add(IndexVehicleAsync(vehicleMonitorIndex));
 
-                    await Console.Out.WriteLineAsync($"Index vehicle id: {vehicleMonitorIndex.Id} success");
+                    //await IndexVehicleAsync(vehicleMonitorIndex);                 
                 }
-                await Task.WhenAll(tasks);
+                //await Task.WhenAll(tasks);
                 return Ok(true);
             }
             catch (Exception ex)
@@ -133,6 +133,7 @@ namespace DapperASPNetCore.Controllers
                     throw new Exception("Document NULL");
                 }
                 var response = await _elasticClient.IndexDocumentAsync<VehicleMonitorIndex>(document);
+                await Console.Out.WriteLineAsync($"Index vehicle id: {document.Id} success");
                 return response.IsValid;
             }
             catch (Exception ex)
