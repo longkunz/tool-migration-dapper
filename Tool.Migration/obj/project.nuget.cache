@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IOBLSHv78SXsaY+2JPrJ76DFmXOdMeRgJ8nI48tjwKXhcY/+de94s33oLKUUgyTerDhSmV6aI9sObPmXM4/Kww==",
+  "dgSpecHash": "3MwOgrFCp28nIpH0WmEGy+cvosrrrw4OxVIGzYkX10i/NTQKW0HW6ndBiMZOHx+tyqT9hckyhXHbrcxZJud1/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\longhv\\Downloads\\dapper-aspnetcore-webapi-main\\dapper-aspnetcore-webapi-main\\DapperASPNetCore\\Tool.Migration\\Tool.VIP.Migrator.csproj",
+  "projectFilePath": "D:\\tool-migration-dapper\\Tool.Migration\\Tool.VIP.Migrator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\longhv\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\longhv\\.nuget\\packages\\elasticsearch.net\\7.17.5\\elasticsearch.net.7.17.5.nupkg.sha512",

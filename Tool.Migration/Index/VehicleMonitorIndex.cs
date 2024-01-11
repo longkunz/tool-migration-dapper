@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Tool.VIP.Migrator.Index
 {
@@ -12,6 +14,9 @@ namespace Tool.VIP.Migrator.Index
         public bool? Inactive { get; set; }
         public int? Status { get; set; }
         public IEnumerable<VehicleDeviceDto> Devices { get; set; }
+        [JsonIgnore]
+        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+        public string UpdatedBy { get; set; }
     }
 
     public class VehicleDeviceDto

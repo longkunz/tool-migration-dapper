@@ -1867,11 +1867,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\longhv\\Downloads\\dapper-aspnetcore-webapi-main\\dapper-aspnetcore-webapi-main\\DapperASPNetCore\\Tool.Migration\\Tool.VIP.Migrator.csproj",
+      "projectUniqueName": "D:\\tool-migration-dapper\\Tool.Migration\\Tool.VIP.Migrator.csproj",
       "projectName": "Tool.VIP.Migrator",
-      "projectPath": "C:\\Users\\longhv\\Downloads\\dapper-aspnetcore-webapi-main\\dapper-aspnetcore-webapi-main\\DapperASPNetCore\\Tool.Migration\\Tool.VIP.Migrator.csproj",
+      "projectPath": "D:\\tool-migration-dapper\\Tool.Migration\\Tool.VIP.Migrator.csproj",
       "packagesPath": "C:\\Users\\longhv\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\longhv\\Downloads\\dapper-aspnetcore-webapi-main\\dapper-aspnetcore-webapi-main\\DapperASPNetCore\\Tool.Migration\\obj\\",
+      "outputPath": "D:\\tool-migration-dapper\\Tool.Migration\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\longhv\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1884,6 +1884,7 @@
       "sources": {
         "C:\\Program Files (x86)\\DevExpress 18.1\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "D:\\tracking-netcore-common-nuget": {},
         "https://api.nuget.org/v3/index.json": {},
         "https://nuget.vietmap.io/v3/index.json": {}
       },
@@ -1897,6 +1898,9 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "default"
       }
     },
     "frameworks": {
@@ -1961,7 +1965,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -10,5 +10,9 @@ namespace DapperASPNetCore.Contracts
         public Task<IEnumerable<UserSetting>> GetUserSettings();
 
         Task<IEnumerable<VehicleDevice>> GetVehicleDevices();
+
+        Task<IEnumerable<VehicleDevice>> GetDeletedVehicles();
+
+        Task<IEnumerable<VehicleDevice>> GetVehicleDevicesById(int id);
     }
 }

@@ -99,7 +99,8 @@ namespace DapperASPNetCore.Controllers
                         Id = vehicleGroup.FirstOrDefault().Id,
                         Inactive = vehicleGroup.FirstOrDefault().Inactive,
                         Plate = vehicleGroup.FirstOrDefault().Plate,
-                        Status = 0,
+                        Status = 2,
+                        UpdatedBy = "Migrate Tool",
                         Devices = vehicleGroup.Select(vg => new VehicleDeviceDto
                         {
                             DeviceName = vg.DeviceName,
@@ -113,6 +114,92 @@ namespace DapperASPNetCore.Controllers
 
                     //await IndexVehicleAsync(vehicleMonitorIndex);                 
                 }
+                //await Task.WhenAll(tasks);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("migrate-vehicle-deleted")]
+        public async Task<IActionResult> GetDeletedVehicle()
+        {
+            try
+            {
+                // Get list user.
+                var vehicleDevices = await _masterDbRepo.GetDeletedVehicles();
+                Console.WriteLine($"Current total deleted vehicles: {vehicleDevices.Count()}");
+
+                var vehicleGroups = vehicleDevices.GroupBy(v => v.Id);
+                var tasks = new List<Task>();
+                foreach (var vehicleGroup in vehicleGroups)
+                {
+                    var vehicleMonitorIndex = new VehicleMonitorIndex
+                    {
+                        ActualPlate = vehicleGroup.FirstOrDefault()?.ActualPlate,
+                        CompanyName = vehicleGroup.FirstOrDefault()?.Company,
+                        CompanyId = vehicleGroup.FirstOrDefault()?.CompanyId,
+                        Id = vehicleGroup.FirstOrDefault().Id,
+                        Inactive = vehicleGroup.FirstOrDefault()?.Inactive,
+                        Plate = vehicleGroup.FirstOrDefault()?.Plate,
+                        Status = 0,
+                        Devices = vehicleGroup.Select(vg => new VehicleDeviceDto
+                        {
+                            DeviceName = vg?.DeviceName,
+                            DeviceType = vg?.DeviceTypeId,
+                            Id = vg?.DeviceId,
+                            IsLocked = vg?.IsLocked,
+                            Imei = vg?.Imei
+                        })
+                    };
+                    tasks.Add(IndexVehicleAsync(vehicleMonitorIndex));
+
+                    //await IndexVehicleAsync(vehicleMonitorIndex);                 
+                }
+                //await Task.WhenAll(tasks);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("update-vehicle-by-id")]
+        public async Task<IActionResult> UpdateVehicleAsync(int id)
+        {
+            try
+            {
+                // Get list user.
+                var vehicleDevices = await _masterDbRepo.GetVehicleDevicesById(id);
+                Console.WriteLine($"Current total vehicles: {vehicleDevices.Count()}");
+                var vehicleMonitorIndex = new VehicleMonitorIndex
+                {
+                    ActualPlate = vehicleDevices.FirstOrDefault().ActualPlate,
+                    CompanyName = vehicleDevices.FirstOrDefault().Company,
+                    CompanyId = vehicleDevices.FirstOrDefault().CompanyId,
+                    Id = vehicleDevices.FirstOrDefault().Id,
+                    Inactive = vehicleDevices.FirstOrDefault().Inactive,
+                    Plate = vehicleDevices.FirstOrDefault().Plate,
+                    Status = 0,
+                    Devices = vehicleDevices.Select(vg => new VehicleDeviceDto
+                    {
+                        DeviceName = vg.DeviceName,
+                        DeviceType = vg.DeviceTypeId,
+                        Id = vg.DeviceId,
+                        IsLocked = vg.IsLocked,
+                        Imei = vg.Imei
+                    })
+                };
+                await IndexVehicleAsync(vehicleMonitorIndex);
+
+                //await IndexVehicleAsync(vehicleMonitorIndex);                 
                 //await Task.WhenAll(tasks);
                 return Ok(true);
             }

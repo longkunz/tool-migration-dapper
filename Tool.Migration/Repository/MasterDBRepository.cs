@@ -18,11 +18,56 @@ namespace DapperASPNetCore.Repository
             _context = context;
         }
 
+        public async Task<IEnumerable<VehicleDevice>> GetDeletedVehicles()
+        {
+            try
+            {
+                try
+                {
+                    var query = @"SELECT d.Id AS DeviceId,
+                                       d.DeviceTypeId,
+                                       dt.Name AS DeviceName,
+                                       v.Id,
+                                       v.Plate,
+                                       v.ActualPlate,
+                                       d.CompanyId,
+                                       d.Imei,
+                                       ISNULL(d.IsLocked, 0) IsLocked,
+                                       comp.Name AS Company,
+                                       v.Inactive
+                                FROM dbo.tbl_Vehicle v
+                                    INNER JOIN dbo.tbl_Company comp
+                                        ON v.CompanyId = comp.Id
+                                    LEFT JOIN dbo.tbl_Device d
+                                        ON d.Id = v.DeviceId
+                                    LEFT JOIN dbo.tbl_DeviceType dt
+                                        ON dt.Id = d.DeviceTypeId
+                                WHERE v.Inactive = 1;";
+
+                    using var connection = _context.CreateConnection();
+                    connection.Open();
+
+                    var vehicleDevices = await connection.QueryAsync<VehicleDevice>(query);
+                    return vehicleDevices;
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<UserSetting>> GetUserSettings()
         {
             try
             {
-                var query = "SELECT us.Id, us.Vehicles, u.Username, u.CompanyId, u.Email, u.RoleIdsJson, us.Inactive FROM dbo.tbl_UserSetting us (NOLOCK) JOIN dbo.tbl_User u (NOLOCK) ON us.Id = u.Id WHERE u.Inactive = 0 AND us.Inactive = 0;";
+                var query = "SELECT * FROM dbo.View_UserSettingES";
 
                 using var connection = _context.CreateConnection();
                 connection.Open();
@@ -42,54 +87,32 @@ namespace DapperASPNetCore.Repository
             try
             {
                 //var query = "SELECT * FROM View_VehicleDeviceES";
-                var query = @"SELECT d.Id AS DeviceId,
-                                   d.DeviceTypeId,
-                                   dt.Name as DeviceName,
-                                   v.Id,
-                                   v.Plate,
-                                   v.ActualPlate,
-                                   d.CompanyId,
-                                   d.Imei,
-                                   ISNULL(d.IsLocked, 0) IsLocked,
-                                   com.Name AS Company,
-		                           v.Inactive
-                            FROM dbo.tbl_Device d
-                                INNER JOIN dbo.tbl_DeviceType dt
-                                    ON d.DeviceTypeId = dt.Id
-                                INNER JOIN dbo.tbl_Vehicle AS v
-                                    ON v.DeviceId = d.Id
-                                LEFT JOIN dbo.tbl_Company com
-                                    ON com.Id = d.CompanyId
-                            WHERE d.Inactive = 0
-                            UNION
-                            SELECT d.Id AS DeviceId,
-                                   d.DeviceTypeId,
-                                   dt.Name as DeviceName,
-                                   v.Id 'VehicleId',
-                                   v.Plate,
-                                   v.ActualPlate,
-                                   d.CompanyId,
-                                   d.Imei,
-                                   ISNULL(d.IsLocked, 0) IsLocked,
-                                   com.Name AS Company,
-		                           v.Inactive
-                            FROM dbo.tbl_Device d
-                                INNER JOIN dbo.tbl_DeviceType dt
-                                    ON d.DeviceTypeId = dt.Id
-                                INNER JOIN dbo.tbl_VehicleDevice vd
-                                    ON vd.DeviceId = d.Id
-                                INNER JOIN dbo.tbl_Vehicle v
-                                    ON v.Id = vd.VehicleId
-                                LEFT JOIN dbo.tbl_Company com
-                                    ON com.Id = d.CompanyId
-                            WHERE d.Inactive = 0
-                                  AND vd.IsActive = 1";
+                var query = @"SELECT * FROM dbo.View_VehicleDeviceES";
 
                 using var connection = _context.CreateConnection();
                 connection.Open();
 
                 var vehicleDevices = await connection.QueryAsync<VehicleDevice>(query);
                 return vehicleDevices;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<VehicleDevice>> GetVehicleDevicesById(int id)
+        {
+            try
+            {
+                var query = $"SELECT * FROM dbo.View_VehicleDeviceES WHERE ID = {id}";
+
+                using var connection = _context.CreateConnection();
+                connection.Open();
+
+                var userSettings = await connection.QueryAsync<VehicleDevice>(query);
+                return userSettings;
 
             }
             catch (Exception)
